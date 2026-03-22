@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Преподаватели</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .action-btn { margin: 0 2px; }
+        .teacher-photo {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap"></i> Техникум
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">О техникуме</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/students">Студенты</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/teachers">Преподаватели</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <% if (user && user.userId) { %>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">
+                                <i class="fas fa-user"></i> <%= user.userName %>
+                                <% if (user.userRole === 'admin') { %>
+                                    <span class="badge bg-warning text-dark">Админ</span>
+                                <% } %>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Наши преподаватели</h1>
+            <% if (isAdmin) { %>
+                <a href="/teachers/add" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Добавить преподавателя
+                </a>
+            <% } %>
+        </div>
+        
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                 <th>ID</th>
+                 <th>Фото</th>
+                 <th>Табельный номер</th>
+                 <th>Имя</th>
+                 <th>Фамилия</th>
+                 <th>Предмет</th>
+                 <th>Категория</th>
+                 <th>Стаж (лет)</th>
+                 <th>Действия</th>
+            </thead>
+            <tbody>
+                <% teachers.forEach(t => { %>
+                  <tr>
+                      <td><%= t.id %></td>
+                      <td>
+                          <img src="/uploads/<%= t.photo || 'default-avatar.jpg' %>" 
+                               class="teacher-photo" 
+                               alt="Фото преподавателя">
+                      </td>
+                      <td><%= t.teacher_id %></td>
+                      <td><%= t.first_name %></td>
+                      <td><%= t.last_name %></td>
+                      <td><%= t.subject %></td>
+                      <td><%= t.category %></td>
+                      <td><%= t.experience %></td>
+                      <td>
+                          <a href="/teachers/<%= t.id %>" class="btn btn-sm btn-info action-btn" title="Просмотр">
+                              <i class="fas fa-eye"></i>
+                          </a>
+                          <% if (isAdmin) { %>
+                              <a href="/teachers/edit/<%= t.id %>" class="btn btn-sm btn-warning action-btn" title="Редактировать">
+                                  <i class="fas fa-edit"></i>
+                              </a>
+                              <form action="/teachers/delete/<%= t.id %>" method="POST" style="display: inline;">
+                                  <button type="submit" class="btn btn-sm btn-danger action-btn" title="Удалить" onclick="return confirm('Вы уверены?')">
+                                      <i class="fas fa-trash"></i>
+                                  </button>
+                              </form>
+                          <% } %>
+                      </td>
+                  </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        
+        <% if (teachers.length === 0) { %>
+            <div class="alert alert-info">Нет преподавателей</div>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

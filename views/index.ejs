@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Техникум - Главная</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            margin-top: -24px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .news-card {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+   <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap"></i> Техникум
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">О техникуме</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/students">Студенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teachers">Преподаватели</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <% if (user && user.userId) { %>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">
+                                <i class="fas fa-user"></i> <%= user.userName %>
+                                <% if (user.userRole === 'admin') { %>
+                                    <span class="badge bg-warning text-dark">Админ</span>
+                                <% } %>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-3 mb-4">
+                <i class="fas fa-graduation-cap"></i> Добро пожаловать в Техникум
+            </h1>
+            <p class="lead mb-4">Современное образование для успешной карьеры</p>
+            <p class="mb-5">Мы предлагаем качественное образование по востребованным специальностям</p>
+            
+            
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-laptop-code fa-4x text-primary mb-3"></i>
+                        <h5 class="card-title">Современные программы</h5>
+                        <p class="card-text">Актуальные учебные программы, соответствующие требованиям работодателей</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-chalkboard-teacher fa-4x text-primary mb-3"></i>
+                        <h5 class="card-title">Опытные преподаватели</h5>
+                        <p class="card-text">Преподаватели с практическим опытом работы в индустрии</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-flask fa-4x text-primary mb-3"></i>
+                        <h5 class="card-title">Современная база</h5>
+                        <p class="card-text">Оснащенные лаборатории и компьютерные классы</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div class="row bg-white rounded shadow-sm my-5">
+            <div class="col-md-3 stat-item">
+                <div class="stat-number">500+</div>
+                <p class="text-muted">Студентов</p>
+            </div>
+            <div class="col-md-3 stat-item">
+                <div class="stat-number">50+</div>
+                <p class="text-muted">Преподавателей</p>
+            </div>
+            <div class="col-md-3 stat-item">
+                <div class="stat-number">15</div>
+                <p class="text-muted">Специальностей</p>
+            </div>
+            <div class="col-md-3 stat-item">
+                <div class="stat-number">25</div>
+                <p class="text-muted">Лет опыта</p>
+            </div>
+        </div>
+
+        
+
+        <!-- Отзывы -->
+<h2 class="text-center mb-4">Что говорят наши студенты</h2>
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex mb-3">
+                    <img src="/images/students/student1.jpg" 
+                         class="rounded-circle me-3" 
+                         style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #667eea;"
+                         alt="Фото студента">
+                    <div>
+                        <h6 class="mb-0">Анна Петрова</h6>
+                        <small class="text-muted">студентка 3 курса</small>
+                    </div>
+                </div>
+                <p class="card-text">
+                    <i class="fas fa-quote-left text-primary me-2"></i>
+                    Отличный техникум с сильными преподавателями. Получаю знания, которые реально пригодятся в работе. Современное оборудование и дружная атмосфера.
+                </p>
+                <div class="text-warning">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex mb-3">
+                    <img src="/images/students/student2.jpg" 
+                         class="rounded-circle me-3" 
+                         style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #667eea;"
+                         alt="Фото студента">
+                    <div>
+                        <h6 class="mb-0">Иван Сидоров</h6>
+                        <small class="text-muted">выпускник 2023</small>
+                    </div>
+                </div>
+                <p class="card-text">
+                    <i class="fas fa-quote-left text-primary me-2"></i>
+                    Благодаря техникуму устроился в IT-компанию сразу после выпуска. Отличная база знаний и практические навыки очень помогли на собеседовании.
+                </p>
+                <div class="text-warning">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex mb-3">
+                    <img src="/images/students/student3.jpg" 
+                         class="rounded-circle me-3" 
+                         style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #667eea;"
+                         alt="Фото студента">
+                    <div>
+                        <h6 class="mb-0">Евгений Смиренко</h6>
+                        <small class="text-muted">студент 2 курса</small>
+                    </div>
+                </div>
+                <p class="card-text">
+                    <i class="fas fa-quote-left text-primary me-2"></i>
+                    Современное оборудование, интересные проекты, дружная атмосфера. Очень рад, что поступил сюда. Преподаватели всегда готовы помочь.
+                </p>
+                <div class="text-warning">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-graduation-cap me-2"></i>Техникум</h5>
+                    <p>Современное образование для успешной карьеры. Готовим специалистов с 1995 года.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i>+7 (495) 123-45-67</li>
+                        <li><i class="fas fa-envelope me-2"></i>info@technikum.ru</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>г. Москва, ул. Образования, 15</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Мы в соцсетях</h5>
+                    <div>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <small>&copy; 2024 Техникум. Все права защищены.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

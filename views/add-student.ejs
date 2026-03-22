@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить студента</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Техникум</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">О техникуме</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/students">Студенты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/teachers">Преподаватели</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <% if (user && user.userId) { %>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">
+                                <i class="fas fa-user"></i> <%= user.userName %>
+                                <span class="badge bg-warning text-dark">Админ</span>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Добавить нового студента</h3>
+            </div>
+            <div class="card-body">
+                <form action="/students/add" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Студенческий ID</label>
+                            <input type="text" name="student_id" class="form-control" placeholder="ST-001" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Группа</label>
+                            <input type="text" name="group_name" class="form-control" placeholder="ИТ-21" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Имя</label>
+                            <input type="text" name="first_name" class="form-control" placeholder="Иван" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Фамилия</label>
+                            <input type="text" name="last_name" class="form-control" placeholder="Петров" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="student@example.com">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Дата рождения</label>
+                        <input type="date" name="birth_date" class="form-control" required>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                        <a href="/students" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Отмена
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

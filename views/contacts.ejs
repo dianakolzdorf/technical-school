@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Техникум</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .navbar { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card { border: none; box-shadow: 0 2px 15px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .contact-info i { width: 30px; color: #0d6efd; }
+        .map-container { height: 400px; border-radius: 10px; overflow: hidden; }
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .gallery-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .gallery-item {
+            margin-bottom: 20px;
+        }
+        .photo-caption {
+            text-align: center;
+            margin-top: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap"></i> Техникум
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">О техникуме</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contacts">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/students">Студенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teachers">Преподаватели</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <% if (user && user.userId) { %>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">
+                                <i class="fas fa-user"></i> <%= user.userName %>
+                                <% if (user.userRole === 'admin') { %>
+                                    <span class="badge bg-warning text-dark">Админ</span>
+                                <% } %>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   
+    <!-- Основной контент -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Контакты</h1>
+        
+        <div class="row">
+            <!-- Контактная информация -->
+            <div class="col-md-5 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-address-card text-primary me-2"></i>
+                            Наши контакты
+                        </h3>
+                        
+                        <div class="contact-info">
+                            <p class="mb-3">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <strong>Адрес:</strong><br>
+                                г. Москва, ул. Образования, д. 15
+                            </p>
+                            
+                            <p class="mb-3">
+                                <i class="fas fa-phone text-primary me-2"></i>
+                                <strong>Телефон:</strong><br>
+                                +7 (495) 123-45-67
+                            </p>
+                            
+                            <p class="mb-3">
+                                <i class="fas fa-envelope text-primary me-2"></i>
+                                <strong>Email:</strong><br>
+                                info@technikum.ru
+                            </p>
+                            
+                            <p class="mb-3">
+                                <i class="fas fa-clock text-primary me-2"></i>
+                                <strong>Режим работы:</strong><br>
+                                Пн-Пт: 9:00 - 18:00<br>
+                                Сб: 10:00 - 15:00<br>
+                                Вс: выходной
+                            </p>
+                            
+                            <p class="mb-3">
+                                <i class="fas fa-graduation-cap text-primary me-2"></i>
+                                <strong>Приемная комиссия:</strong><br>
+                                +7 (495) 765-43-21<br>
+                                priem@technikum.ru
+                            </p>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5>Мы в соцсетях</h5>
+                            <a href="#" class="btn btn-outline-primary me-2">
+                                <i class="fab fa-vk"></i> VK
+                            </a>
+                            <a href="#" class="btn btn-outline-primary me-2">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="fab fa-youtube"></i> YouTube
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Форма обратной связи -->
+            <div class="col-md-7 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-4">
+                            <i class="fas fa-paper-plane text-primary me-2"></i>
+                            Напишите нам
+                        </h3>
+                        
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Ваше имя</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Иван Иванов" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="ivan@example.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Тема</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Вопрос о поступлении" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Сообщение</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Ваше сообщение..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-paper-plane me-2"></i>Отправить сообщение
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Галерея фотографий (6 фото) -->
+        <div class="row mt-5">
+    <h2 class="text-center mb-4">Фотогалерея</h2>
+    
+    <div class="col-md-4 gallery-item">
+        <img src="/images/gallery/уч.jpeg" class="gallery-img" alt="Учебная аудитория" onclick="openModal(this)">
+        <div class="photo-caption">Учебная аудитория</div>
+    </div>
+    <div class="col-md-4 gallery-item">
+        <img src="/images/gallery/пк.jpeg" class="gallery-img" alt="Компьютерный класс" onclick="openModal(this)">
+        <div class="photo-caption">Компьютерный класс</div>
+    </div>
+    <div class="col-md-4 gallery-item">
+        <img src="/images/gallery/зал.jpeg" class="gallery-img" alt="Актовый зал" onclick="openModal(this)">
+        <div class="photo-caption">Актовый зал</div>
+    </div>
+    <div class="col-md-4 gallery-item">
+        <img src="/images/gallery/сто.jpeg" class="gallery-img" alt="Столовая" onclick="openModal(this)">
+        <div class="photo-caption">Студенческая столовая</div>
+    </div>
+    <div class="col-md-4 gallery-item">
+        <img src="/images/gallery/сп.jpeg" class="gallery-img" alt="Спортивный зал" onclick="openModal(this)">
+        <div class="photo-caption">Спортивный зал</div>
+    </div>
+    <div class="col-md-4 gallery-item">
+        <img src="/images/gallery/бл.jpeg" class="gallery-img" alt="Библиотека" onclick="openModal(this)">
+        <div class="photo-caption">Библиотека</div>
+    </div>
+</div>
+        
+        <!-- Дополнительная информация -->
+        <div class="row mt-4">
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-bus fa-2x text-primary mb-2"></i>
+                        <h6>Как добраться</h6>
+                        <p class="small">м. Университет, автобусы 1, 2, 3 до остановки "Техникум"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-parking fa-2x text-primary mb-2"></i>
+                        <h6>Парковка</h6>
+                        <p class="small">Бесплатная парковка для посетителей на территории</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-wheelchair fa-2x text-primary mb-2"></i>
+                        <h6>Доступная среда</h6>
+                        <p class="small">Пандусы и лифты для маломобильных групп</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для просмотра фото -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <img src="" id="modalImage" class="img-fluid w-100" alt="Просмотр фото">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-graduation-cap me-2"></i>Техникум</h5>
+                    <p>Современное образование для успешной карьеры</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <i class="fas fa-phone me-2"></i>+7 (495) 123-45-67<br>
+                        <i class="fas fa-envelope me-2"></i>info@technikum.ru
+                    </p>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <small>&copy; 2024 Техникум. Все права защищены.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Функция для открытия модального окна с фото
+        function openModal(img) {
+            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            document.getElementById('modalImage').src = img.src;
+            modal.show();
+        }
+
+        // Обработка отправки формы
+        document.querySelector('form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

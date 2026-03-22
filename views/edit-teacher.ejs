@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактировать преподавателя</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Техникум</a>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <h1>Редактировать преподавателя</h1>
+        
+        <form action="/teachers/edit/<%= teacher.id %>" method="POST" class="mt-4">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Имя</label>
+                    <input type="text" name="first_name" class="form-control" value="<%= teacher.first_name %>" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Фамилия</label>
+                    <input type="text" name="last_name" class="form-control" value="<%= teacher.last_name %>" required>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Предмет</label>
+                <input type="text" name="subject" class="form-control" value="<%= teacher.subject %>" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Категория</label>
+                <select name="category" class="form-control">
+                    <option value="высшая" <%= teacher.category === 'высшая' ? 'selected' : '' %>>Высшая</option>
+                    <option value="первая" <%= teacher.category === 'первая' ? 'selected' : '' %>>Первая</option>
+                    <option value="вторая" <%= teacher.category === 'вторая' ? 'selected' : '' %>>Вторая</option>
+                    <option value="без категории" <%= teacher.category === 'без категории' ? 'selected' : '' %>>Без категории</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Стаж (лет)</label>
+                <input type="number" name="experience" class="form-control" value="<%= teacher.experience %>" required>
+            </div>
+            
+            <button type="submit" class="btn btn-warning">Сохранить изменения</button>
+            <a href="/teachers" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</body>
+</html>
