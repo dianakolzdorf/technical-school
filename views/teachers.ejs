@@ -73,20 +73,20 @@
             </thead>
             <tbody>
                 <% teachers.forEach(t => { %>
-                 outside
+                <tr>
                      <td><%= t.id %></td>
                      <td>
-                         <img src="<%= t.photo || '/uploads/default-avatar.jpg' %>" 
-                              class="teacher-photo" 
-                              alt="Фото преподавателя">
-                      </td>
-                      <td><%= t.teacher_id %></td>
-                      <td><%= t.first_name %></td>
-                      <td><%= t.last_name %></td>
-                      <td><%= t.subject %></td>
-                      <td><%= t.category %></td>
-                      <td><%= t.experience %></td>
-                      <td>
+                        <img src="<%= t.photo || '/uploads/default-avatar.jpg' %>" 
+                             class="teacher-photo" 
+                             alt="Фото преподавателя">
+                     </td>
+                     <td><%= t.teacher_id %></td>
+                     <td><%= t.first_name %></td>
+                     <td><%= t.last_name %></td>
+                     <td><%= t.subject %></td>
+                     <td><%= t.category %></td>
+                     <td><%= t.experience %></td>
+                     <td>
                         <a href="/teachers/<%= t.id %>" class="btn btn-sm btn-info action-btn" title="Просмотр">
                             <i class="fas fa-eye"></i>
                         </a>
@@ -100,8 +100,8 @@
                                 </button>
                             </form>
                         <% } %>
-                      </td>
-                 </tr>
+                     </td>
+                </tr>
                 <% }) %>
             </tbody>
         </table>
