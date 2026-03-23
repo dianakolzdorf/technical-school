@@ -53,7 +53,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        secure: false,  // Временно false для Railway
+        secure: false,
         sameSite: 'lax'
     }
 }));
@@ -121,9 +121,10 @@ const startServer = async () => {
         await sequelize.authenticate();
         console.log('✅ База данных подключена');
         
-        console.log('🔄 Синхронизация моделей...');
-        await sequelize.sync({ alter: true });
-        console.log('✅ Модели синхронизированы');
+        console.log('🔄 Проверка моделей...');
+        // Отключаем автоматическую синхронизацию, чтобы не создавать лишние индексы
+        await sequelize.sync({ alter: false });
+        console.log('✅ Модели проверены (без изменения структуры)');
         
         app.listen(PORT, '0.0.0.0', () => {
             console.log('=================================');

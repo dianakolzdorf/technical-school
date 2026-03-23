@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
         host: process.env.DB_HOST || 'localhost',
         port: process.env.DB_PORT || 3306,
         dialect: 'mysql',
-        logging: process.env.NODE_ENV === 'development' ? console.log : false,
+        logging: false, // Отключаем логирование в продакшене
         dialectOptions: {
             connectTimeout: 60000
         },
@@ -27,7 +27,9 @@ const sequelize = new Sequelize(
             timestamps: true,
             underscored: true,
             createdAt: 'created_at',
-            updatedAt: 'updated_at'
+            updatedAt: 'updated_at',
+            // Отключаем автоматическое создание индексов
+            indexes: []
         },
         pool: {
             max: 10,
@@ -36,8 +38,10 @@ const sequelize = new Sequelize(
             idle: 10000
         },
         retry: {
-            max: 3 // Количество попыток подключения
-        }
+            max: 3
+        },
+        // Отключаем автоматическую синхронизацию
+        sync: { alter: false, force: false }
     }
 );
 
