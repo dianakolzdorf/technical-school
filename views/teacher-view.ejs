@@ -38,16 +38,10 @@
                                 <% } %>
                             </span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a></li>
                     <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a></li>
                     <% } %>
                 </ul>
             </div>
@@ -62,7 +56,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 text-center">
-                        <img src="/uploads/<%= teacher.photo || 'default-avatar.jpg' %>" 
+                        <img src="<%= teacher.photo || '/uploads/default-avatar.jpg' %>" 
                              class="teacher-photo-large" 
                              alt="Фото преподавателя">
                     </div>
@@ -79,9 +73,13 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    <a href="/teachers" class="btn btn-secondary">Назад к списку</a>
+                    <a href="/teachers" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Назад к списку
+                    </a>
                     <% if (isAdmin) { %>
-                        <a href="/teachers/edit/<%= teacher.id %>" class="btn btn-warning">Редактировать</a>
+                        <a href="/teachers/edit/<%= teacher.id %>" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
                     <% } %>
                 </div>
             </div>
