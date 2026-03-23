@@ -26,21 +26,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">О техникуме</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contacts">Контакты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/students">Студенты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/teachers">Преподаватели</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">О техникуме</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/students">Студенты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/teachers">Преподаватели</a></li>
                 </ul>
                 <ul class="navbar-nav">
                     <% if (user && user.userId) { %>
@@ -52,16 +42,10 @@
                                 <% } %>
                             </span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm" href="/logout">Выйти</a></li>
                     <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm me-2" href="/login">Вход</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-light btn-sm" href="/register">Регистрация</a></li>
                     <% } %>
                 </ul>
             </div>
@@ -95,26 +79,23 @@
                         </thead>
                     <tbody>
                         <% students.forEach(student => { %>
-                         outside
-                            70<%= student.id %>70
-                            70<%= student.student_id %>70
-                            70
+                        <tr>
+                            <td><%= student.id %></td>
+                            <td><%= student.student_id %></td>
+                            <td>
                                 <img src="<%= student.photo || '/uploads/default-avatar.jpg' %>" 
                                      class="student-photo" 
                                      alt="Фото студента">
-                            70
-                            70<%= student.first_name %>70
-                            70<%= student.last_name %>70
-                            70<%= student.group_name %>70
-                            70<%= student.email || '-' %>70
-                            70<%= student.birth_date %>70
-                            70
-                                <!-- Кнопка просмотра для всех -->
+                            </td>
+                            <td><%= student.first_name %></td>
+                            <td><%= student.last_name %></td>
+                            <td><%= student.group_name %></td>
+                            <td><%= student.email || '-' %></td>
+                            <td><%= student.birth_date %></td>
+                            <td>
                                 <a href="/students/<%= student.id %>" class="btn btn-sm btn-info action-btn" title="Просмотр">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                
-                                <!-- Кнопки редактирования и удаления только для админа -->
                                 <% if (isAdmin) { %>
                                     <a href="/students/edit/<%= student.id %>" class="btn btn-sm btn-warning action-btn" title="Редактировать">
                                         <i class="fas fa-edit"></i>
@@ -125,11 +106,11 @@
                                         </button>
                                     </form>
                                 <% } %>
-                            70
-                        70
+                            </td>
+                        </tr>
                         <% }) %>
                     </tbody>
-                68
+                </table>
             </div>
         <% } else { %>
             <div class="alert alert-info">
