@@ -7,6 +7,7 @@ const { isGuest, isAuthenticated } = require('../middleware/auth');
 // СТРАНИЦА ВХОДА
 // ============================================
 router.get('/login', isGuest, (req, res) => {
+    console.log('GET /login - session:', req.session?.userId);
     res.render('login', { 
         title: 'Вход в систему',
         error: req.flash('error'),
@@ -22,6 +23,8 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         
+        console.log('POST /login - попытка входа:', email);
+        
         if (!email || !password) {
             req.flash('error', 'Заполните все поля');
             return res.redirect('/login');
@@ -30,6 +33,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ where: { email } });
         
         if (!user) {
+            console.log('Пользователь не найден:', email);
             req.flash('error', 'Неверный email или пароль');
             return res.redirect('/login');
         }
@@ -37,6 +41,7 @@ router.post('/login', async (req, res) => {
         const isValid = await user.validatePassword(password);
         
         if (!isValid) {
+            console.log('Неверный пароль для:', email);
             req.flash('error', 'Неверный email или пароль');
             return res.redirect('/login');
         }
@@ -45,6 +50,8 @@ router.post('/login', async (req, res) => {
         req.session.userEmail = user.email;
         req.session.userRole = user.role;
         req.session.userName = user.full_name;
+        
+        console.log('Успешный вход! Сессия создана:', req.session.userId);
         
         req.flash('success', `Добро пожаловать, ${user.full_name}!`);
         res.redirect('/');

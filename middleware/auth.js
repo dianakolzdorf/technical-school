@@ -24,10 +24,11 @@ const isAdmin = (req, res, next) => {
 
 // Проверка гостя (не авторизован)
 const isGuest = (req, res, next) => {
-    if (!req.session || !req.session.userId) {
-        return next();
+    // Если пользователь авторизован - перенаправляем на главную
+    if (req.session && req.session.userId) {
+        return res.redirect('/');
     }
-    res.redirect('/dashboard');
+    next();
 };
 
 // Добавление пользователя в шаблоны
